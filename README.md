@@ -4,7 +4,7 @@
 [![Manifest](https://img.shields.io/badge/Manifest-V3-purple?style=for-the-badge&logo=googlechrome&logoColor=white)](#)
 [![Twitch](https://img.shields.io/badge/Twitch-Drops-9146FF?style=for-the-badge&logo=twitch&logoColor=white)](https://www.twitch.tv)
 [![Platform](https://img.shields.io/badge/Platform-Chromium-informational?style=for-the-badge&logo=google-chrome&logoColor=white)](#)
-[![Version](https://img.shields.io/badge/Version-1.4.2.6-blueviolet?style=for-the-badge)](#)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blueviolet?style=for-the-badge)](#)
 
 Extension de navegador disenada para automatizar de manera inteligente la recoleccion de Twitch Drops y puntos de canal en segundo plano, optimizando el consumo de recursos de red y CPU.
 

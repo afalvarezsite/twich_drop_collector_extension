@@ -6,136 +6,141 @@
 [![Platform](https://img.shields.io/badge/Platform-Chromium-informational?style=for-the-badge&logo=google-chrome&logoColor=white)](#)
 [![Version](https://img.shields.io/badge/Version-1.4.2.6-blueviolet?style=for-the-badge)](#)
 
-Extension de navegador disenada para automatizar de manera inteligente la recoleccion de Twitch Drops y puntos de canal en segundo plano, optimizando el consumo de recursos de red y CPU.
+**English** | [Espanol](README.es.md)
 
 ---
 
-## Descripcion General
-
-Twitch Drops Collector (TDC) es una extension desarrollada bajo el estandar Manifest V3 para navegadores basados en Chromium (Google Chrome, Brave, Microsoft Edge, Opera, Vivaldi, entre otros). 
-
-La extension interactua con los servicios internos de Twitch para detectar campanas de drops activas asociadas a las cuentas de los usuarios, localizar transmisiones en directo validas que otorguen progreso, gestionar la reproduccion con optimizaciones de ancho de banda y reclamar recompensas de forma automatica en cuanto se completan.
+Browser extension engineered to intelligently automate Twitch Drops and channel points collection in the background, minimizing network bandwidth and CPU usage.
 
 ---
 
-## Caracteristicas Principales
+## Overview
 
-- Recoleccion automatica de Drops: Monitoriza las campanas activas y reclama las recompensas tan pronto como alcanzan el 100% de progreso.
-- Reclamacion de Puntos de Canal: Reclama automaticamente las bonificaciones periodicas de puntos de canal en las transmisiones activas.
-- Seleccion y Priorizacion de Campanas: Permite ordenar las campanas por prioridad del 1 al N, asegurando que se recolecten primero los articulos de mayor interes.
-- Deteccion de transmisiones estancadas: Identifica si un streamer cambia de categoria, finaliza su emision o no avanza en el progreso del drop, reasignando la reproduccion a otro canal elegible de forma automatica.
-- Modo de bajo consumo de red: Ajusta automaticamente la calidad del stream a 160p para minimizar el consumo de ancho de banda y uso de memoria.
-- Silenciado automatico de pestanas: Mantiene silenciadas las transmisiones abiertas por la extension para no interferir con las tareas del usuario.
-- Indicador visual en pestanas: Modifica temporalmente el favicon de Twitch al logotipo amarillo de TDC en la pestana de reproduccion para una identificacion inmediata.
-- Filtro de juegos vinculados: Opcion para mostrar unicamente los juegos asociados formalmente a la cuenta de Twitch del usuario.
-- Panel de control completo: Interfaz oscura adaptada a la linea grafica de Twitch, con barra de progreso en tiempo real, contador de drops y puntos acumulados, y configuracion detallada.
+Twitch Drops Collector (TDC) is a browser extension developed under the Manifest V3 standard for Chromium-based browsers (Google Chrome, Brave, Microsoft Edge, Opera, Vivaldi, and others).
+
+The extension interacts directly with Twitch GraphQL endpoints to detect active drop campaigns associated with the user's account, locate eligible live streams that award progress, manage stream playback with resource-saving optimizations, and automatically claim earned rewards as soon as progress finishes.
 
 ---
 
-## Estructura del Proyecto
+## Key Features
+
+- Automated Drop Collection: Monitors active campaigns continuously and claims rewards the moment they reach 100% progress.
+- Channel Points Claiming: Automatically detects and collects periodic channel point bonuses across watched streams.
+- Campaign Prioritization: Allows users to rank campaigns from priority 1 to N, guaranteeing that preferred drops are targeted first.
+- Stagnant Stream Detection: Detects when a streamer ends their broadcast, changes categories, or halts drop progression, and immediately switches to another eligible streamer.
+- Low Bandwidth Mode: Automatically forces streams to 160p to minimize network transfer, CPU overhead, and memory consumption.
+- Automatic Tab Muting: Keeps tabs opened by the extension muted so background farming does not interrupt user audio.
+- Tab Visual Indicator: Temporarily overrides the Twitch page favicon with the yellow TDC logo on active farming tabs for quick identification.
+- Connected Games Filter: Optional setting to restrict game discovery strictly to titles officially linked to the user's Twitch profile.
+- Comprehensive Dashboard: Dark-mode popup aligned with Twitch design guidelines, providing live progress feedback, total claimed drops and points counters, and granular settings.
+
+---
+
+## Project Structure
 
 ```text
 twich_drops_collector_extension/
-|-- manifest.json                 # Configuracion y permisos de la extension (Manifest V3)
-|-- background.js                 # Service Worker principal de segundo plano
-|-- inject.js                     # Script de inyeccion en paginas de Twitch
-|-- onPage.js                     # Logica ejecutada en el contexto de la pagina
-|-- index.html                    # Interfaz de usuario del popup
-|-- waiting.html                  # Ventana auxiliar de autenticacion y espera
+|-- manifest.json                 # Extension configuration and permissions (Manifest V3)
+|-- background.js                 # Primary background Service Worker
+|-- inject.js                     # Content script injected into Twitch pages
+|-- onPage.js                     # In-page context DOM script
+|-- index.html                    # Popup user interface
+|-- waiting.html                  # Auxiliary authentication window
 |-- assets/
 |   |-- css/
-|   |   `-- main.css              # Estilos visuales de la interfaz de usuario
+|   |   `-- main.css              # User interface stylesheets
 |   |-- img/
-|   |   |-- atd-16.png            # Icono de la extension (16x16)
-|   |   |-- atd-32.png            # Icono de la extension (32x32)
-|   |   |-- atd-48.png            # Icono de la extension (48x48)
-|   |   |-- atd-128.png           # Icono de la extension (128x128)
-|   |   |-- atd-128-gray.png      # Icono inactivo para la interfaz
+|   |   |-- atd-16.png            # Extension icon (16x16)
+|   |   |-- atd-32.png            # Extension icon (32x32)
+|   |   |-- atd-48.png            # Extension icon (48x48)
+|   |   |-- atd-128.png           # Extension icon (128x128)
+|   |   |-- atd-128-gray.png      # Idle drop placeholder icon
 |   |   |-- twitch-logo-yellow-16.png
 |   |   `-- twitch-logo-yellow-32.png
 |   `-- js/
-|       |-- i18n.js               # Internacionalizacion y cadenas de texto
-|       |-- jquery.js             # Biblioteca auxiliar jQuery
-|       `-- main.js               # Controlador de eventos del popup
+|       |-- i18n.js               # Localization strings (EN/ES)
+|       |-- jquery.js             # jQuery library
+|       `-- main.js               # Popup event handler and controller
 |-- background/
-|   |-- buffer.js                 # Manejo y serializacion de buferes de datos
-|   `-- twitchApi.js              # Cliente de comunicacion con las APIs de Twitch
-|-- .gitignore                    # Reglas de exclusion para el control de versiones
-|-- LICENSE                       # Licencia publica GNU GPLv3
-`-- README.md                     # Documentacion del repositorio
+|   |-- buffer.js                 # Data buffer serialization helpers
+|   `-- twitchApi.js              # Twitch GraphQL API client
+|-- .gitignore                    # Version control ignore definitions
+|-- LICENSE                       # GNU General Public License v3.0
+|-- README.md                     # Primary English documentation
+`-- README.es.md                  # Spanish documentation
 ```
 
 ---
 
-## Instalacion
+## Installation
 
-Al tratarse de una extension de desarrollo, la instalacion se realiza en modo descomprimido:
+As this is a development extension, it is installed in unpacked mode:
 
-1. Clona el repositorio en tu equipo local:
+1. Clone the repository to your local system:
    ```bash
-   git clone https://github.com/tu-usuario/twich_drops_collector_extension.git
+   git clone https://github.com/your-username/twich_drops_collector_extension.git
    ```
-2. Abre un navegador compatible con Chromium (Chrome, Brave, Edge).
-3. Dirigete a la seccion de extensiones en la barra de direcciones:
+2. Open a Chromium-compatible web browser (Google Chrome, Brave, Microsoft Edge).
+3. Navigate to the extensions manager in the address bar:
    - Google Chrome / Brave: `chrome://extensions`
    - Microsoft Edge: `edge://extensions`
-4. Activa la casilla **Modo de desarrollador** (Developer Mode) situada en la esquina superior derecha.
-5. Haz clic en el boton **Cargar descomprimida** (Load unpacked).
-6. Selecciona la carpeta raiz de este proyecto donde se encuentra el archivo `manifest.json`.
-7. Fija la extension en la barra de herramientas para acceder rapidamente a su panel.
+4. Toggle on **Developer mode** in the upper right corner.
+5. Click the **Load unpacked** button.
+6. Select the root folder of this project containing the `manifest.json` file.
+7. Pin the extension to your toolbar for quick access.
 
 ---
 
-## Configuracion y Uso
+## Configuration and Usage
 
-1. Inicia sesion en [Twitch](https://www.twitch.tv) con tu cuenta en el navegador.
-2. Abre la ventana emergente de la extension haciendo clic en su icono en la barra de herramientas.
-3. Activa la extension mediante el interruptor general situado en la barra lateral.
-4. Opciones disponibles en la pestana de Ajustes:
-   - **Connected Games**: Limita la lista de seleccion a titulos que ya cuenten con conexion directa con tu perfil de Twitch.
-   - **API Token**: Renueva automaticamente el token de autenticacion de Twitch en caso de expiracion.
-   - **Mute Tabs**: Garantiza que las pestanas abiertas por la extension permanezcan silenciadas en todo momento.
-   - **Lowest Quality**: Fuerza la reproduccion a 160p para reducir drasticamente la transferencia de datos y el impacto en el rendimiento del sistema.
-   - **Notify Badge Drops**: Muestra avisos especificos cuando hay campanas de insignias disponibles con requisitos de suscripcion.
-5. En la seccion **Auto Drops**, visualiza las campanas activas y personaliza su orden de prioridad segun tus preferencias.
-
----
-
-## Permisos Requeridos
-
-La extension solicita los siguientes permisos en el archivo `manifest.json`:
-
-- `storage`: Necesario para almacenar localmente las preferencias de configuracion, la lista de prioridades de juegos y el estado de recoleccion.
-- `tabs`: Requerido para abrir, silenciar, monitorear y cerrar las pestanas donde se reproducen las transmisiones con drops activos.
-- `host_permissions (*://*.twitch.tv/*)`: Permite la comunicacion con los puntos de enlace de la API de Twitch y la interaccion con las paginas oficiales de transmision.
+1. Log in to your account on [Twitch](https://www.twitch.tv) in the browser.
+2. Click the extension icon in your browser toolbar to open the control panel.
+3. Turn on the extension using the master switch located in the sidebar.
+4. Available Settings:
+   - **Connected Games**: Restricts the game dropdown exclusively to games linked to your Twitch account.
+   - **API Token**: Automatically regenerates the Twitch authorization token when the current token expires.
+   - **Mute Tabs**: Ensures that tabs opened by the extension remain completely muted.
+   - **Lowest Quality**: Automatically locks playback to 160p to drastically reduce network load and system resources.
+   - **Notify Badge Drops**: Displays alerts when subscriber-badge drop campaigns are detected.
+5. In the **Auto Drops** tab, inspect all available drop campaigns and reorder their priority numbers as needed.
 
 ---
 
-## Arquitectura Tecnica
+## Required Permissions
 
-- **Service Worker (`background.js`)**: Gestiona la logica central de decision, temporizadores de control, llamadas GraphQL a Twitch mediante `twitchApi.js` y persistencia en `chrome.storage`.
-- **Content Scripts (`inject.js` y `onPage.js`)**: Interactuan con el DOM de la pagina de Twitch para silenciar el reproductor, aplicar la calidad minima y cambiar el favicon indicativo de la pestana.
-- **Popup UI (`index.html`, `assets/css/main.css`, `assets/js/main.js`)**: Proporciona una interfaz visual reactiva con soporte multi-idioma (espanol e ingles) mediante `i18n.js`.
+The extension requests the following permissions declared in `manifest.json`:
+
+- `storage`: Required to store configuration parameters, game priority queues, and collection statistics locally.
+- `tabs`: Required to open, mute, monitor, and close the stream tabs used for drop progression.
+- `host_permissions (*://*.twitch.tv/*)`: Permits network requests to Twitch GraphQL APIs and script injection into Twitch domains.
 
 ---
 
-## Contribuciones
+## Technical Architecture
 
-Las contribuciones que sigan las pautas de codigo limpio y estabilidad son bienvenidas. Para proponer cambios:
+- **Service Worker (`background.js`)**: Executes core scheduling, manages Twitch GraphQL requests via `twitchApi.js`, detects streamer state changes, and persists status to `chrome.storage`.
+- **Content Scripts (`inject.js` and `onPage.js`)**: Modifies the DOM of active Twitch streams to enforce mute states, trigger lowest resolution settings, and update tab favicons.
+- **Popup UI (`index.html`, `assets/css/main.css`, `assets/js/main.js`)**: Delivers an interactive interface featuring localization via `i18n.js`.
 
-1. Crea una rama para tu funcion o correccion:
+---
+
+## Contributing
+
+Contributions that adhere to clean code practices and Manifest V3 compatibility are welcome:
+
+1. Create a branch for your feature or bug fix:
    ```bash
-   git checkout -b feature/nombre-de-la-mejora
+   git checkout -b feature/your-improvement
    ```
-2. Realiza tus modificaciones asegurando la compatibilidad con Manifest V3.
-3. Realiza un commit con un mensaje claro:
+2. Implement your changes maintaining clean separation of concerns.
+3. Commit your changes with a clear descriptive message:
    ```bash
-   git commit -m "Descripcion clara del cambio"
+   git commit -m "Describe your changes clearly"
    ```
-4. Sube la rama a tu fork y abre una solicitud de extraccion (Pull Request).
+4. Push to your fork and submit a Pull Request.
 
 ---
 
-## Licencia
+## License
 
-Este proyecto se distribuye bajo los terminos de la Licencia Publica General de GNU version 3 (GPLv3). Para mas detalles, consulta el archivo [LICENSE](LICENSE).
+This project is licensed under the GNU General Public License v3.0. Refer to the [LICENSE](LICENSE) file for complete terms.

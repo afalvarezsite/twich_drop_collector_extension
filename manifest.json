@@ -1,0 +1,47 @@
+{
+    "manifest_version": 3,
+    "name": "twich drop collector",
+    "version": "1.0.0",
+    "action": {
+        "default_popup": "index.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*.twitch.tv/*"
+            ],
+            "js": [
+                "inject.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "icons": {
+        "16": "assets/img/atd-16.png",
+        "32": "assets/img/atd-32.png",
+        "48": "assets/img/atd-48.png",
+        "128": "assets/img/atd-128.png"
+    },
+    "permissions": [
+        "storage",
+        "tabs"
+    ],
+    "host_permissions": [
+        "*://*.twitch.tv/*"
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "/assets/img/*.png",
+                "onPage.js"
+            ],
+            "matches": [
+                "https://*.twitch.tv/*"
+            ]
+        }
+    ],
+    "background": {
+        "service_worker": "background.js",
+        "type": "module"
+    }
+}

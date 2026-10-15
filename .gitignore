@@ -1,0 +1,53 @@
+# Internal Documentation & Notes
+upgrades.md
+
+# Operating System Files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+
+# IDE & Editor Configurations
+.vscode/
+*.code-workspace
+.idea/
+*.iml
+*.ipr
+*.iws
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+
+# Node & Package Managers
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Extension Builds & Packages
+*.zip
+*.crx
+*.xpi
+dist/
+build/
+out/
+.cache/
+
+# Logs, Dumps & Temp Files
+*.log
+*.tmp
+*.bak
+scratch/
+
+# Python (if tools are executed locally)
+__pycache__/
+*.pyc
+*.pyo

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="assets/js/jquery.js"></script>
+    <script type="text/javascript" src="assets/js/i18n.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="assets/js/main.js" charset="UTF-8"></script>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+
+<body>
+    <div id="main">
+        <div class="page" id="mainPage">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <div id="curDrops">
+                <div class="dropBoxCont">
+                    <div class="dropBox current wopac" title="Current drop">
+                        <div class="progressbar">
+                            <div>
+                                0%
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p id="dropGame" data-i18n="not_getting_drops">Not Currently Getting Drops</p>
+        </div>
+        <div class="page" id="settingsPage" style="display: none;">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <p class="pageDescription" data-i18n="settings_desc">Configure extension behavior and automated drop collection options.</p>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setconnectedGames" class="settingsBool" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_connected_games">
+                    Connected Games: When enabled, the "select a game" drop down will only show games that you
+                    have connected to your twitch account.
+                </div>
+            </div>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setautoGetToken" class="settingsBool" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_api_token">
+                    API Token: Automatically gets a new twitch API token when the current one expires. CAUTION: This
+                    function may tab you out of games.
+                </div>
+            </div>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setwatchPopout" class="settingsBool" type="checkbox" disabled>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_popout_window">
+                    Pop-out Window: Watch streams in a pop-out window instead of opening a new tab.
+                </div>
+            </div>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setautoMute" class="settingsBool" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_mute_tabs">
+                    Mute Tabs: Automatically mute tabs opened by the extension.
+                </div>
+            </div>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setlowestQuality" class="settingsBool" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_lowest_quality">
+                    Lowest Quality: Automatically set stream video to the lowest available quality (160p) to reduce network and bandwidth usage.
+                </div>
+            </div>
+            <div class="setting">
+                <div class="left">
+                    <label class="switch">
+                        <input id="setsetShowBadges" class="settingsBool" type="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="right" data-i18n="setting_notify_badges">
+                    Notify Badge Drops: Shows a notification if badge drops with subscriptions are available.
+                </div>
+            </div>
+        </div>
+        <div class="page" id="dropsPage" style="display: none;">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <p class="pageDescription" data-i18n="view_drops_desc">Manage drop priorities from 1 to N (1 = highest priority) and track real-time campaign progress.</p>
+            <div id="allDrops">
+                <p data-i18n="not_currently_getting_drops_page">Not Currently getting drops</p>
+            </div>
+        </div>
+        <div class="page" id="statsPage" style="display: none;">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <p class="pageDescription" data-i18n="stats_desc">Overview of your claimed drops and accumulated channel points.</p>
+            <p id="totalClaimedDrops" data-i18n="drops_claimed_init">Drops claimed: 0</p>
+            <p id="totalClaimedPoints" data-i18n="channel_points_init">Channel points claimed: 0</p>
+        </div>
+        <div class="page" id="extDisabled" style="display: none;">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <p class="pageDescription" data-i18n="ext_disabled_desc">Turn on the extension using the sidebar switch to start collecting drops.</p>
+            <p data-i18n="ext_disabled_msg">Extension is disabled!</p>
+        </div>
+        <div class="page" id="autoDropsPage" style="display: none;">
+            <h2>TWICH DROP COLLECTOR</h2>
+            <p class="pageDescription adTitle" data-i18n="auto_drops_desc">Options below will auto populate with your linked games on Twitch.</p>
+            <div id="autoDropBody"></div>
+        </div>
+    </div>
+    <div id="side">
+        <div id="enableExContainer">
+            <span id="enableExStatus">OFF</span>
+            <label class="switch" id="enableExSwitch">
+                <input type="checkbox" class="enableEx">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p id="selGameText" data-i18n="select_game_title">SELECT GAME</p>
+        <div id="selGame" aria-expanded="false">
+            <span class="selectedGame" data-i18n="select_game_placeholder">Select Game</span>
+            <span class="arrow"></span>
+            <div class="selectDropdown hidden">
+                <div class="dropdownSearch">
+                    <input type="text" id="gameSearchInput" data-i18n-placeholder="search_game_placeholder" placeholder="Search Game..." autocomplete="off">
+                </div>
+                <ul class="selectDropdownList">
+                </ul>
+            </div>
+        </div>
+        <div class="sideBtn active" id="homeBtn" data-i18n="home">HOME</div>
+        <div class="sideBtn" id="viewDropsBtn" data-i18n="view_drops">VIEW DROPS</div>
+        <div class="sideBtn" id="autoDropsBtn" data-i18n="auto_drops">AUTO DROPS</div>
+        <div class="sideBtn" id="statsBtn" data-i18n="statistics">STATISTICS</div>
+        <div class="sideBtn" id="settingsBtn" data-i18n="settings">SETTINGS</div>
+    </div>
+</body>
+
+</html>
